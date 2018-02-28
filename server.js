@@ -66,7 +66,9 @@ var htmlTemplate = `
                 </div>
                 <hr />
                 <h3> ${heading}</h3>
-                <div> ${date}</div>
+                <div>
+                    ${date.toDateString()}
+                </div>
                 <div>
                     ${content}
                 </div>
