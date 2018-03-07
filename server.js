@@ -120,28 +120,32 @@ app.post('/create-user', function(req, res){
 app.post('/login', function(req, res) {
      var username = req.body.username;
     var password = req.body.password;
-    pool.query('SELECT * FROM users WHERE username = $1', [username], function (err, result){
+    pool.query('SELECT * FROM users WHERE username = $1',  [username], function (err,  result){
         if (err) {
-            res.status(404).send('username/password invalid');
+            res.status(500).send('err.toString()');
         } else {
-            var dbString = result.rows[0].password;
-            var salt = dbString.split('$')[2];
-            var hashedPassword = hash(password, salt);
-            if(hashedPassword === dbString) {
-                
-                //Set the session
-                req.session.auth = {userId: result.rows[0].id};
-                //set cookie with a sessio id
-                //internally on the server side it mas the session id to an object
-                // { auth: {userId }}
-                
-                res.send('credentials correct!');
-            } else {
+            if (result.rows.length === 0) {
+                res.send(403).send('username/password invalid');
+            } 
+            else {
+                var dbString = result.rows[0].password;
+                var salt = dbString.split('$')[2];
+                var hashedPassword = hash(password, salt);
+                if(hashedPassword === dbString) {
+                    
+                    //Set the session
+                    req.session.auth = {userId: result.rows[0].id};
+                    //set cookie with a sessio id
+                    //internally on the server side it mas the session id to an object
+                    // { auth: {userId }}
+                    
+                    res.send('credentials correct!');
+                } else {
                  res.status(404).send('username/password invalid');
-                
+                }
             }
         }
-    })
+    });
     
 });
 
