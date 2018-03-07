@@ -3,7 +3,7 @@ var morgan = require('morgan');
 var Pool = require('pg').Pool;
 var crypto =  require('crypto');
 var bodyParser = require('body-parser');
-var session = require('expire-session');
+var session = require('express-session');
 
 var config = {
     user : 'u2015shriramrajaraman' ,
@@ -141,7 +141,7 @@ app.post('/login', function(req, res) {
                     
                     res.send('credentials correct!');
                 } else {
-                 res.status(404).send('username/password invalid');
+                 res.status(403).send('username/password invalid');
                 }
             }
         }
