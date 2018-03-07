@@ -29,7 +29,7 @@ submit.onclick = function () {
             } else if (request.status === 403)
             {
                 alert('Username/Password incorrect');
-            } else (request.status === 500)
+            } else if (request.status === 500)
             {
                 alert('Something went wrong on the server');
             }
