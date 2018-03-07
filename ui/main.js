@@ -37,8 +37,8 @@ submit.onclick = function () {
     };
     
     //Make the request
-    var username = document.getElementByid('username').value;
-    var password = document.getElementByid('password').value;
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
     console.log(username);
     console.log(password);
     
